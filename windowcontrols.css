@@ -19,6 +19,14 @@ body {
   box-shadow: 0px 5px 35px rgb(20, 20, 20);
 }
 
+.title-bar {
+  height: 50px;
+  background-color: #00000000;
+  position: relative;
+  top: 0px;
+  width: 100%;
+}
+
 #title-img {
   position: fixed;
   top: 6px;

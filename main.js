@@ -1,55 +1,30 @@
 const {
-    app,
-    BrowserWindow
+    app
 } = require('electron');
+const vars = require('./util/variables');
 const Sentry = require('@sentry/electron');
 
 Sentry.init({
     dsn: 'https://3777e4687aa245f2b8030691ed48dc2f@sentry.io/1416510'
 });
 
-const os = require('os');
-var pjson = require('./package.json');
 const Config = require('electron-store');
 const userSettings = new Config({
     name: "userSettings"
 });
 
-let mainWindow;
+app.requestSingleInstanceLock();
 
-global.PLATFORM = os.platform();
-global.VERSION = pjson.productVersion;
+if (userSettings.get('autoStart') == undefined) userSettings.set('autoStart', true)
+if (userSettings.get('autoUpdateCheck') == undefined) userSettings.set('autoUpdateCheck', true)
 
-if (pjson.devBuild)
-    global.VERSIONSTRING = VERSION + "-DEV";
-else
-    global.VERSIONSTRING = VERSION;
-
-global.BROWSERCONNECTIONSTATE = "NOT_CONNECTED";
-global.TRAY = null;
-global.MAINWINDOWSHOWING = false;
-
-global.createWindow = () => {
-    if (!MAINWINDOWSHOWING) {
-        MAINWINDOWSHOWING = true;
-        mainWindow = new BrowserWindow({
-            width: 800,
-            height: 600,
-            frame: false,
-            icon: require('path').join(__dirname, '/icons/Discord-Logo-White.png')
-        });
-        mainWindow.loadFile('index.html');
-        mainWindow.maximize();
-        mainWindow.on('closed', () => {
-            mainWindow = null;
-            MAINWINDOWSHOWING = false;
-        });
-    }
+if (vars.PLATFORM == "darwin") {
+    app.dock.setBadge("V" + vars.VERSION)
 }
 
 function appReady() {
     require('./tray/createTray').run();
-    createWindow();
+    vars.createWindow();
 }
 
 app.on('ready', appReady);
@@ -58,6 +33,6 @@ app.on('window-all-closed', () => {});
 
 app.on('activate', () => {
     if (mainWindow === null) {
-        createWindow();
+        vars.createWindow();
     }
 });

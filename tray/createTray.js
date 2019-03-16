@@ -1,4 +1,5 @@
-const path = require('path')
+const path = require('path');
+const vars = require('../util/variables');
 const {
   Tray,
   Menu,
@@ -6,11 +7,11 @@ const {
 } = require('electron')
 var cfu = () => require('../util/updateChecker').checkForUpdate(true, true)
 exports.run = () => {
-  TRAY = new Tray(path.join(__dirname, "../icons/Discord-Logo-White.png"))
-  TRAY.setToolTip(`Discord RPC Controller V${VERSIONSTRING}`)
+  vars.TRAY = new Tray(path.join(__dirname, "../icons/Discord-Logo-White.png"))
+  vars.TRAY.setToolTip(`Discord RPC Controller V${vars.VERSIONSTRING}`)
   var menuBarMenu = new Menu()
   menuBarMenu.append(new MenuItem({
-    label: `Discord RPC Controller | V${VERSIONSTRING}`,
+    label: `Discord RPC Controller | V${vars.VERSIONSTRING}`,
     enabled: false,
     icon: path.join(__dirname, "../icons/Discord-Logo-White.png")
   }))
@@ -23,10 +24,17 @@ exports.run = () => {
   }))
   menuBarMenu.append(new MenuItem({
     label: "Open Main Window",
-    click: createWindow
+    click: vars.createWindow
+  }))
+  menuBarMenu.append(new MenuItem({
+    label: "Open Settings",
+    click: vars.createSettingsWindow
+  }))
+  menuBarMenu.append(new MenuItem({
+    type: "separator"
   }))
   menuBarMenu.append(new MenuItem({
     role: "quit"
   }))
-  TRAY.setContextMenu(menuBarMenu)
+  vars.TRAY.setContextMenu(menuBarMenu)
 }
