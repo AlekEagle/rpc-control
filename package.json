@@ -1,0 +1,70 @@
+{
+  "name": "discord-rpc-controller",
+  "productName": "Discord RPC Controller",
+  "version": "0.0.1",
+  "description": "Do you wanna control your rich presence easily? But don't want to learn that nasty code? With this you can either control your own or a premade rich presence application!",
+  "main": "main.js",
+  "scripts": {
+    "postinstall": "install-app-deps",
+    "start": "npm install && electron .",
+    "pack": "build --dir",
+    "dist": "build",
+    "build-all": "build -w --x64 && build -w --ia32 && build -l --ia32 && build -l --x64"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlekEagleYT/rpc-control.git"
+  },
+  "email": "alek@lugetron.com",
+  "keywords": [
+    "discord",
+    "discord rich presence",
+    "discord rpc",
+    "electron"
+  ],
+  "author": "AlekEagle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlekEagleYT/rpc-control/issues"
+  },
+  "homepage": "https://github.com/AlekEagleYT/rpc-control#readme",
+  "devDependencies": {
+    "electron": "^4.0.1",
+    "electron-builder": "^20.38.5"
+  },
+  "dependencies": {
+    "@sentry/electron": "^0.16.0",
+    "discord-rpc": "^3.0.1"
+  },
+  "electronPackagerConfig": {
+    "asar": true
+  },
+  "build": {
+    "dmg": {
+      "contents": [{
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "maintainer": "AlekEagle",
+      "category": "Utility",
+      "icon": "icons/"
+    },
+    "win": {
+      "target": "NSIS",
+      "icon": "icons/"
+    }
+  }
+}
