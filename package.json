@@ -2,6 +2,7 @@
   "name": "discord-rpc-controller",
   "productName": "Discord RPC Controller",
   "version": "0.0.1",
+  "productVersion": "0.0.1 alpha",
   "description": "Do you wanna control your rich presence easily? But don't want to learn that nasty code? With this you can either control your own or a premade rich presence application!",
   "main": "main.js",
   "scripts": {
@@ -34,14 +35,17 @@
   },
   "dependencies": {
     "@sentry/electron": "^0.16.0",
-    "discord-rpc": "^3.0.1"
+    "chalk": "^2.4.2",
+    "discord-rpc": "^3.0.1",
+    "electron-store": "^2.0.0"
   },
   "electronPackagerConfig": {
     "asar": true
   },
   "build": {
     "dmg": {
-      "contents": [{
+      "contents": [
+        {
           "x": 110,
           "y": 150
         },
