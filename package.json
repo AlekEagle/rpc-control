@@ -1,8 +1,8 @@
 {
   "name": "discord-rpc-controller",
   "productName": "Discord RPC Controller",
-  "version": "0.0.1",
-  "devBuild": true,
+  "version": "0.0.2",
+  "devBuild": false,
   "description": "Do you wanna control your rich presence easily? But don't want to learn that nasty code? With this you can either control your own or a premade rich presence application!",
   "main": "main.js",
   "scripts": {
