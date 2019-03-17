@@ -12,7 +12,7 @@
 
   <body>
     <div style="-webkit-app-region: drag;border-bottom-color: #ffffffd3" id="title-bar">
-      <img id="title-img" src="icons/Discord-Logo-White.png" height="24px" width="24px">
+      <img id="title-img" src="icons/icon.png" height="24px" width="24px">
       <div id="title">Discord RPC Settings</div>
       <div id="title-bar-btns">
         <button id="close-btn" style="font-size: 15px" class="control-button">❌</button>
@@ -36,8 +36,16 @@
       window.</p>
     <p style="margin-bottom: 0px;" id="clientidText">Client ID</p>
     <input type="text" id="clientid"><br>
+    <label class="container">
+      <input type="checkbox" id="startup">
+      <span class="checkmark"></span>__Open app at computer start up?
+    </label>
+    <label class="container">
+      <input type="checkbox" id="mainwindowstartup">
+      <span class="checkmark"></span>__Open control window at program start?
+    </label>
     <button class="button" id="save" style="margin-top: 5%;">Save Changes</button>
-    <p>NOTE: After making changes you must restart the main window.</p>
+    <p>NOTE: After making changes to the RPC type you must restart the ENTIRE APPLICATION.</p>
   </body>
 
 </html>

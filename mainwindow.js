@@ -75,8 +75,6 @@ function windowOpened() {
 
 		document.getElementById('largetext').value = RPCConfig.get('details');
 		document.getElementById('smalltext').value = RPCConfig.get('state');
-		document.getElementById('largeimagename').value = RPCConfig.get('largeimagekey');
-		document.getElementById('smallimagename').value = RPCConfig.get('smallimagekey');
 		document.getElementById('largeimagetext').value = RPCConfig.get('largeimagetext');
 		document.getElementById('smallimagetext').value = RPCConfig.get('smallimagetext');
 

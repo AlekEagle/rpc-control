@@ -45,6 +45,8 @@ function windowOpened() {
 			}
 		})
 		document.getElementById('clientid').value = userSettings.get('rpcid');
+		document.getElementById('startup').checked = userSettings.get('autoLaunch');
+		document.getElementById('mainwindowstartup').checked = userSettings.get('mainWindowOnStart');
 		if (userSettings.get('rpctype') === 'public') {
 			document.getElementById('clientidText').hidden = true;
 			document.getElementById('clientid').hidden = true;
@@ -59,11 +61,15 @@ function windowOpened() {
 				userSettings.delete('rpctype');
 				userSettings.set('rpctype', 'public');
 			}
+			userSettings.delete('autoLaunch');
+			userSettings.set('autoLaunch', document.getElementById('startup').checked);
+			userSettings.delete('mainWindowOnStart');
+			userSettings.set('mainWindowOnStart', document.getElementById('mainwindowstartup').checked);
 			userSettings.delete('rpcid');
 			userSettings.set('rpcid', document.getElementById('clientid').value);
 			var window = remote.getCurrentWindow()
 			window.close()
-		})
+		});
 
 	};
 

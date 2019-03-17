@@ -4,9 +4,9 @@ const {
 } = require('electron');
 
 const vars = require('./variables');
-const path = require('path')
-const request = require("request")
-const chalk = require("chalk")
+const path = require('path');
+const request = require("request");
+const chalk = require("chalk");
 
 async function checkForUpdate(sendNotification = false, sendNoUpdateInfo = false) {
 
@@ -67,11 +67,11 @@ async function checkForUpdate(sendNotification = false, sendNoUpdateInfo = false
 
     } else {
       vars.UPDATEAVAIABLE = false
-      console.log(vars.CONSOLEPREFIX + chalk.cyan("Up to date! ") + chalk.yellow(`V${vars.VERSION}`))
+      console.log(vars.CONSOLEPREFIX + chalk.cyan("Up to date! ") + chalk.yellow(`V${vars.VERSIONSTRING}`))
       if (sendNoUpdateInfo) {
         const noUpdateAvaiableNotification = new Notification({
           title: 'Discord RPC Controller',
-          body: `You are up to date! (V${vars.VERSION})`,
+          body: `You're up to date! (V${vars.VERSIONSTRING})`,
           silent: true
         })
 

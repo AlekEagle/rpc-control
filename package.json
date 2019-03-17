@@ -1,16 +1,16 @@
 {
   "name": "discord-rpc-controller",
   "productName": "Discord RPC Controller",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "devBuild": false,
   "description": "Do you wanna control your rich presence easily? But don't want to learn that nasty code? With this you can either control your own or a premade rich presence application!",
   "main": "main.js",
   "scripts": {
     "postinstall": "install-app-deps",
     "start": "npm install && electron .",
-    "pack": "build --dir",
-    "dist": "build",
-    "build-all": "build -w --x64 && build -l --x64"
+    "pack": "export ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true && build --dir",
+    "dist": "export ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true && build",
+    "build-all": "export ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true && build -lw --x64"
   },
   "repository": {
     "type": "git",
@@ -70,7 +70,7 @@
     },
     "win": {
       "target": "NSIS",
-      "icon": "icons/"
+      "icon": "icons/icon.ico"
     }
   }
 }

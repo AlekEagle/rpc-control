@@ -10,28 +10,30 @@ const userSettings = new Config({
 const RPCConfig = new Config({
     name: 'RPCConfig'
 });
+var rpc  = new DiscordRPC.Client({transport: 'ipc'});
 
 module.exports = () => {
     if (userSettings.get('rpctype') === 'public') id = vars.PUBLICRPCID;
     else if (userSettings.get('rpctype') === 'private') id = userSettings.get('rpcid');
 
-    const rpc  = new DiscordRPC.Client({transport: 'ipc'});
     const startTimestamp = new Date();
 
     async function setActivity() {
-        if (!rpc || !vars.mainWindow) {
+        if (!rpc) {
             return;
         }
-
+        console.log(vars.CONSOLEPREFIX + chalk.cyan("Pushing update to RPC..."));
         rpc.setActivity({
             details: RPCConfig.get('details'),
             state: RPCConfig.get('state'),
             startTimestamp,
-            largeImageKey: RPCConfig.get('largeimagekey'),
+            largeImageKey: userSettings.get('rpctype') === 'public' ? 'none' : RPCConfig.get('largeimagekey'),
             largeImageText: RPCConfig.get('largeimagetext'),
-            smallImageKey: RPCConfig.get('smallimagekey'),
+            smallImageKey: userSettings.get('rpctype') === 'public' ? 'none' : RPCConfig.get('smallimagekey'),
             smallImageText: RPCConfig.get('smallimagetext'),
             instance: false
+        }).then(() => {
+            console.log(vars.CONSOLEPREFIX + chalk.green("Update pushed to RPC!"));
         });
     }
 

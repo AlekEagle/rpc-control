@@ -13,6 +13,7 @@ module.exports = {
     PLATFORM: os.platform(),
     UPDATEAVAIABLE: '',
     VERSION: pjson.version,
+    DEVBUILD: pjson.devBuild,
     VERSIONSTRING: pjson.devBuild ? pjson.version + "-DEV" : pjson.version,
     TRAY: null,
     CONSOLEPREFIX: chalk.bold(chalk.hex('#596cae')("Controller")) + chalk.hex('#ffffff')(": "),
@@ -24,7 +25,7 @@ module.exports = {
                 width: 900,
                 height: 600,
                 frame: false,
-                icon: require('path').join(__dirname, '../icons/Discord-Logo-White.png')
+                icon: require('path').join(__dirname, '../icons/icon.png')
             });
             module.exports.mainWindow.loadFile(require('path').join(__dirname, '../index.html'));
             module.exports.mainWindow.maximize();
@@ -40,7 +41,7 @@ module.exports = {
                 width: 800,
                 height: 600,
                 frame: false,
-                icon: require('path').join(__dirname, '../icons/Discord-Logo-White.png')
+                icon: require('path').join(__dirname, '../icons/icon.png')
             });
             module.exports.settingsWindow.loadFile(require('path').join(__dirname, '../settings.html'));
             module.exports.settingsWindow.maximize();
