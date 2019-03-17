@@ -4,13 +4,15 @@ const vars = require('./variables');
 const Config = require('electron-store');
 const chalk = require("chalk");
 var id;
+var timeout;
+var setActivityLoop;
 const userSettings = new Config({
     name: "userSettings"
 });
 const RPCConfig = new Config({
     name: 'RPCConfig'
 });
-var rpc  = new DiscordRPC.Client({transport: 'ipc'});
+var rpc;
 
 module.exports = () => {
     if (userSettings.get('rpctype') === 'public') id = vars.PUBLICRPCID;
@@ -23,6 +25,12 @@ module.exports = () => {
             return;
         }
         console.log(vars.CONSOLEPREFIX + chalk.cyan("Pushing update to RPC..."));
+        timeout = setTimeout(() => {
+            console.error(vars.CONSOLEPREFIX + chalk.red('Pushing RPC update timed-out, assuming Discord disconnected.'));
+            clearInterval(setActivityLoop)
+            rpc.destroy();
+            login()
+        }, 10e3)
         rpc.setActivity({
             details: RPCConfig.get('details'),
             state: RPCConfig.get('state'),
@@ -34,18 +42,33 @@ module.exports = () => {
             instance: false
         }).then(() => {
             console.log(vars.CONSOLEPREFIX + chalk.green("Update pushed to RPC!"));
+            clearTimeout(timeout);
+        }).catch(err => {
+            console.error(vars.CONSOLEPREFIX + chalk.red(err));
+            clearInterval(setActivityLoop);
+            rpc.destroy();
+            login();
         });
     }
 
-    rpc.on('ready', () => {
-        setActivity();
-
-        setInterval(() => {
+    function login() {
+        rpc  = new DiscordRPC.Client({transport: 'ipc'});
+        rpc.on('connected', () => {
             setActivity();
-        }, 15e3);
-    });
-
-    rpc.login({clientId: id}).then(() => {
-        console.log(vars.CONSOLEPREFIX + chalk.cyan("Connected to RPC!"))
-    }).catch(err => console.error(vars.CONSOLEPREFIX + chalk.red(err)));
+    
+            setActivityLoop = setInterval(() => {
+                setActivity();
+            }, 15e3);
+        });
+        rpc.login({clientId: id}).then(() => {
+            console.log(vars.CONSOLEPREFIX + chalk.cyan("Connected to RPC!"));
+        }).catch(err => {
+            console.error(vars.CONSOLEPREFIX + chalk.red(err));
+            setTimeout(() => {
+                rpc.destroy();
+                login();
+            }, 10e3)
+        });
+    }
+    login();
 }
