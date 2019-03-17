@@ -82,7 +82,7 @@ module.exports = () => {
             setTimeout(() => {
                 rpc.destroy();
                 login();
-            }, 10e3)
+            }, 5e3)
         });
     }
     login();
