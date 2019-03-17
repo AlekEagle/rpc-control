@@ -38,7 +38,7 @@ module.exports = () => {
             clearInterval(setActivityLoop)
             rpc.destroy();
             login()
-        }, 10e3)
+        }, 5e3)
         rpc.setActivity({
             details: RPCConfig.get('details'),
             state: RPCConfig.get('state'),
