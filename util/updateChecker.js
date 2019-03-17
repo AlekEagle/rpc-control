@@ -51,7 +51,7 @@ async function checkForUpdate(sendNotification = false, sendNoUpdateInfo = false
 
       updateWindow.setMenu(null)
 
-      updateWindow.loadURL("file://" + path.join(__dirname, "../update.html"))
+      updateWindow.loadURL("file://" + path.join(__dirname, "../windows/update.html"))
       updateWindow.webContents.on('did-finish-load', () => {
         updateWindow.webContents.send('updateData', body);
       });
