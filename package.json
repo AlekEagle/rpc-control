@@ -10,7 +10,7 @@
     "start": "npm install && electron .",
     "pack": "build --dir",
     "dist": "build",
-    "build-all": "build -w --x64 && build -w --ia32 && build -l --ia32 && build -l --x64"
+    "build-all": "build -w --x64 && build -l --x64"
   },
   "repository": {
     "type": "git",
@@ -31,7 +31,7 @@
   "homepage": "https://github.com/AlekEagleYT/rpc-control#readme",
   "devDependencies": {
     "electron": "^4.0.1",
-    "electron-builder": "^20.38.5"
+    "electron-builder": "^20.39.0"
   },
   "dependencies": {
     "@sentry/electron": "^0.16.0",
