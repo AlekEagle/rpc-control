@@ -1,4 +1,5 @@
 'use strict';
+const {Notification} = require('electron');
 const DiscordRPC = require('discord-rpc');
 const vars = require('./variables');
 const Config = require('electron-store');
@@ -26,6 +27,13 @@ module.exports = () => {
         }
         console.log(vars.CONSOLEPREFIX + chalk.cyan("Pushing update to RPC..."));
         timeout = setTimeout(() => {
+            const disconnectedNotif = new Notification({
+                title: 'Discord RPC Controller',
+                body: `Disconnected from Discord! Trying to reconnect!`,
+                silent: true
+              });
+      
+            disconnectedNotif.show();
             console.error(vars.CONSOLEPREFIX + chalk.red('Pushing RPC update timed-out, assuming Discord disconnected.'));
             clearInterval(setActivityLoop)
             rpc.destroy();
@@ -62,6 +70,13 @@ module.exports = () => {
         });
         rpc.login({clientId: id}).then(() => {
             console.log(vars.CONSOLEPREFIX + chalk.cyan("Connected to RPC!"));
+            const connectedNotif = new Notification({
+                title: 'Discord RPC Controller',
+                body: `Connected to the Discord RPC tubes!`,
+                silent: true
+              });
+      
+            connectedNotif.show();
         }).catch(err => {
             console.error(vars.CONSOLEPREFIX + chalk.red(err));
             setTimeout(() => {
