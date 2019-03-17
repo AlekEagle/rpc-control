@@ -21,7 +21,22 @@
       </div>
     </div>
     <div class="title-bar"></div>
-
+    <p class="nopad nomar">RPC Client</p>
+    <select id="rpcClient">
+      <option id="public">Public RPC</option>
+      <option id="private">Private RPC</option>
+    </select>
+    <p class="nomar" style="font-size: 20px;">Public RPC is the pre-setup RPC client. It does not have support for
+      pictures. If you want to use pictures go <a style="font-size: 20px;" id="discordapp">here</a>
+      and click on "New Application" name it (the name will be what it will be called in your "playing ${Name}") click
+      on the "Copy" button under the
+      client ID and paste it in the text box shown when you set the RPC Client to Private RPC. To add images simply
+      click on Rich Presence then Art Assets, then scroll down to Add Image(s) and upload your images. Then take the
+      asset key (the name the image is given after saving) and paste it into one of the image key boxes in the main
+      window.</p>
+    <p style="margin-bottom: 0px;" id="clientidText">Client ID</p>
+    <input type="text" id="clientid"><br>
+    <button class="button" id="save" style="margin-top: 5%;">Save Changes</button>
   </body>
 
 </html>

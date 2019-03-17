@@ -12,6 +12,14 @@ onkeydown = onkeyup = function (e) {
 	if (map[16] && map[17] && map[67] && map[78] && map[79]) remote.getCurrentWebContents().toggleDevTools() // CTRL + SHIFT + C + O + N
 }
 
+const Config = require('electron-store');
+const userSettings = new Config({
+	name: "userSettings"
+});
+const RPCConfig = new Config({
+	name: 'RPCConfig'
+});
+
 function windowOpened() {
 	function init() {
 		document.getElementById("min-btn").addEventListener("click", function (e) {
@@ -28,6 +36,21 @@ function windowOpened() {
 		document.getElementById("close-btn").addEventListener("click", function (e) {
 			var window = remote.getCurrentWindow();
 			window.close();
+		})
+		if (userSettings.get('rpctype') === 'private') {
+			document.getElementById('largeimagename').disabled = false;
+			document.getElementById('smallimagename').disabled = false;
+			document.getElementById('largeimagename').value = RPCConfig.get('largeimagekey');
+			document.getElementById('smallimagename').value = RPCConfig.get('smallimagekey');
+		} else if (userSettings.get('rpctype') === 'public') {
+			document.getElementById('largeimagename').disabled = true;
+			document.getElementById('smallimagename').disabled = true;
+			document.getElementById('largeimagename').value = 'none';
+			document.getElementById('smallimagename').value = 'none';
+		}
+		document.getElementById('largetext').addEventListener('change', e => {
+			RPCConfig.delete('largetext');
+			RPCConfig.set('largetext', e.target.value === '' ? e.target.placeholder : e.target.value)
 		})
 
 		document.getElementById('openSettings').addEventListener("click", vars.createSettingsWindow)

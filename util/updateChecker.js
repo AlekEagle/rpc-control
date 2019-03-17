@@ -1,16 +1,16 @@
 const {
   BrowserWindow,
-  dialog
+  Notification
 } = require('electron');
 
+const vars = require('./variables');
 const path = require('path')
-
 const request = require("request")
 const chalk = require("chalk")
 
 async function checkForUpdate(sendNotification = false, sendNoUpdateInfo = false) {
 
-  console.log(CONSOLEPREFIX + chalk.cyan("Checking for update..."))
+  console.log(vars.CONSOLEPREFIX + chalk.cyan("Checking for update..."))
 
   request({
     url: "https://api.github.com/repos/AlekEagleYT/rpc-control/releases/latest",
@@ -20,7 +20,7 @@ async function checkForUpdate(sendNotification = false, sendNoUpdateInfo = false
     }
   }, function (error, response, body) {
     if (error) {
-      console.log(CONSOLEPREFIX + chalk.red("Error while checking for update. " + error));
+      console.log(vars.CONSOLEPREFIX + chalk.red("Error while checking for update. " + error));
       dialog.showMessageBox({
         type: 'error',
         title: 'Discord RPC Controller',
@@ -32,10 +32,10 @@ async function checkForUpdate(sendNotification = false, sendNoUpdateInfo = false
     //* Remove v from version
     var gitVersion = body.tag_name.replace('v', '')
     //* Compare version
-    if (gitVersion > VERSION) {
-      global.UPDATEAVAIABLE = gitVersion
+    if (gitVersion > vars.VERSION) {
+      vars.UPDATEAVAIABLE = gitVersion
 
-      console.log(CONSOLEPREFIX + chalk.cyan("New version avaiable: ") + chalk.red(`V${VERSION}`) + chalk.blue(' > ') + chalk.yellow(`V${gitVersion}`))
+      console.log(vars.CONSOLEPREFIX + chalk.cyan("New version avaiable: ") + chalk.red(`V${vars.VERSION}`) + chalk.blue(' > ') + chalk.yellow(`V${gitVersion}`))
 
       var updateWindow = new BrowserWindow({
         center: true,
@@ -51,7 +51,7 @@ async function checkForUpdate(sendNotification = false, sendNoUpdateInfo = false
 
       updateWindow.setMenu(null)
 
-      updateWindow.loadURL("file://" + path.join(__dirname, "../windows/update.html"))
+      updateWindow.loadURL("file://" + path.join(__dirname, "../update.html"))
       updateWindow.webContents.on('did-finish-load', () => {
         updateWindow.webContents.send('updateData', body);
       });
@@ -66,19 +66,21 @@ async function checkForUpdate(sendNotification = false, sendNoUpdateInfo = false
       })
 
     } else {
-      global.UPDATEAVAIABLE = false
-      console.log(CONSOLEPREFIX + chalk.cyan("Up to date! ") + chalk.yellow(`V${VERSION}`))
+      vars.UPDATEAVAIABLE = false
+      console.log(vars.CONSOLEPREFIX + chalk.cyan("Up to date! ") + chalk.yellow(`V${vars.VERSION}`))
       if (sendNoUpdateInfo) {
-        dialog.showMessageBox({
-          type: 'info',
+        const noUpdateAvaiableNotification = new Notification({
           title: 'Discord RPC Controller',
-          message: `You are up to date! (v${VERSION})`
-        });
+          body: `You are up to date! (V${vars.VERSION})`,
+          silent: true
+        })
+
+        noUpdateAvaiableNotification.show()
       }
     }
   })
 
-  return UPDATEAVAIABLE
+  return vars.UPDATEAVAIABLE
 }
 
 module.exports.checkForUpdate = checkForUpdate

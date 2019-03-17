@@ -27,10 +27,6 @@ exports.run = () => {
     click: vars.createWindow
   }))
   menuBarMenu.append(new MenuItem({
-    label: "Open Settings",
-    click: vars.createSettingsWindow
-  }))
-  menuBarMenu.append(new MenuItem({
     type: "separator"
   }))
   menuBarMenu.append(new MenuItem({

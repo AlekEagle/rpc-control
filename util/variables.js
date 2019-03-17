@@ -12,15 +12,16 @@ module.exports = {
     settingsWindow: null,
     PLATFORM: os.platform(),
     UPDATEAVAIABLE: '',
-    VERSION: pjson.productVersion,
-    VERSIONSTRING: pjson.devBuild ? module.exports.VERSION + "-DEV" : module.exports.VERSION,
+    VERSION: pjson.version,
+    VERSIONSTRING: pjson.devBuild ? pjson.version + "-DEV" : pjson.version,
     TRAY: null,
     CONSOLEPREFIX: chalk.bold(chalk.hex('#596cae')("Controller")) + chalk.hex('#ffffff')(": "),
+    PUBLICRPCID: '556520551451983881',
 
     createWindow: () => {
         if (!module.exports.mainWindow) {
             module.exports.mainWindow = new BrowserWindow({
-                width: 800,
+                width: 900,
                 height: 600,
                 frame: false,
                 icon: require('path').join(__dirname, '../icons/Discord-Logo-White.png')
@@ -42,6 +43,7 @@ module.exports = {
                 icon: require('path').join(__dirname, '../icons/Discord-Logo-White.png')
             });
             module.exports.settingsWindow.loadFile(require('path').join(__dirname, '../settings.html'));
+            module.exports.settingsWindow.maximize();
             module.exports.settingsWindow.on('closed', () => {
                 module.exports.settingsWindow = null;
             });

@@ -27,6 +27,25 @@ body {
   width: 100%;
 }
 
+.nopad {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.nomar {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+#discordapp {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 #title-img {
   position: fixed;
   top: 6px;
@@ -344,4 +363,18 @@ input {
   height: 20px;
   transition: width .5s ease;
   background-color: #3ea8bb
+}
+
+.darktextbox {
+  background-color: #272727;
+  color: #d6d6d6;
+  border: 0;
+  outline: none;
+}
+
+.darktextbox:disabled {
+  background-color: #1f1f1f;
+  color: #d6d6d6;
+  border: 0;
+  outline: none;
 }
