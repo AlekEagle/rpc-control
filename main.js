@@ -1,6 +1,7 @@
 const {
     app
 } = require('electron');
+const RPCClient = require('./util/presenceHandler');
 const vars = require('./util/variables');
 const Sentry = require('@sentry/electron');
 const updater = require('./util/updateChecker');
@@ -40,6 +41,9 @@ function appReady() {
 }
 
 if (userSettings.get('autoUpdateCheck')) updater.checkForUpdate(true)
+
+//start RPC connection
+RPCClient()
 
 app.on('ready', appReady);
 

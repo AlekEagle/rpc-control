@@ -49,9 +49,36 @@ function windowOpened() {
 			document.getElementById('smallimagename').value = 'none';
 		}
 		document.getElementById('largetext').addEventListener('change', e => {
-			RPCConfig.delete('largetext');
-			RPCConfig.set('largetext', e.target.value === '' ? e.target.placeholder : e.target.value)
-		})
+			RPCConfig.delete('details');
+			RPCConfig.set('details', e.target.value === '' ? e.target.placeholder : e.target.value)
+		});
+		document.getElementById('smalltext').addEventListener('change', e => {
+			RPCConfig.delete('state');
+			RPCConfig.set('state', e.target.value === '' ? e.target.placeholder : e.target.value)
+		});
+		document.getElementById('largeimagename').addEventListener('change', e => {
+			RPCConfig.delete('largeimagekey');
+			RPCConfig.set('largeimagekey', e.target.value === '' ? e.target.placeholder : e.target.value)
+		});
+		document.getElementById('smallimagename').addEventListener('change', e => {
+			RPCConfig.delete('smallimagekey');
+			RPCConfig.set('smallimagekey', e.target.value === '' ? e.target.placeholder : e.target.value)
+		});
+		document.getElementById('largeimagetext').addEventListener('change', e => {
+			RPCConfig.delete('largeimagetext');
+			RPCConfig.set('largeimagetext', e.target.value === '' ? e.target.placeholder : e.target.value)
+		});
+		document.getElementById('smallimagetext').addEventListener('change', e => {
+			RPCConfig.delete('smallimagetext');
+			RPCConfig.set('smallimagetext', e.target.value === '' ? e.target.placeholder : e.target.value)
+		});
+
+		document.getElementById('largetext').value = RPCConfig.get('details');
+		document.getElementById('smalltext').value = RPCConfig.get('state');
+		document.getElementById('largeimagename').value = RPCConfig.get('largeimagekey');
+		document.getElementById('smallimagename').value = RPCConfig.get('smallimagekey');
+		document.getElementById('largeimagetext').value = RPCConfig.get('largeimagetext');
+		document.getElementById('smallimagetext').value = RPCConfig.get('smallimagetext');
 
 		document.getElementById('openSettings').addEventListener("click", vars.createSettingsWindow)
 	};
