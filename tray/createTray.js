@@ -7,13 +7,13 @@ const {
 } = require('electron')
 var cfu = () => require('../util/updateChecker').checkForUpdate(true, true)
 exports.run = () => {
-  vars.TRAY = new Tray(path.join(__dirname, "../icons/icon.png"))
+  vars.TRAY = new Tray(path.join(__dirname, "../icons/trayicon.png"))
   vars.TRAY.setToolTip(`Discord RPC Controller V${vars.VERSIONSTRING}`)
   var menuBarMenu = new Menu()
   menuBarMenu.append(new MenuItem({
     label: `Discord RPC Controller | V${vars.VERSIONSTRING}`,
     enabled: false,
-    icon: path.join(__dirname, "../icons/icon.png")
+    icon: path.join(__dirname, "../icons/trayicon.png")
   }))
   menuBarMenu.append(new MenuItem({
     type: "separator"
@@ -32,5 +32,8 @@ exports.run = () => {
   menuBarMenu.append(new MenuItem({
     role: "quit"
   }))
+  vars.TRAY.on('double-click', e => {
+    vars.createWindow();
+  })
   vars.TRAY.setContextMenu(menuBarMenu)
 }

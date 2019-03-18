@@ -32,7 +32,10 @@ module.exports = {
             module.exports.mainWindow.on('closed', () => {
                 module.exports.mainWindow = null;
             });
-        } else module.exports.mainWindow.focus()
+        } else {
+            if (module.exports.mainWindow.isMinimized()) module.exports.mainWindow.restore();
+            module.exports.mainWindow.focus();
+        }
     },
 
     createSettingsWindow: () => {
@@ -48,6 +51,9 @@ module.exports = {
             module.exports.settingsWindow.on('closed', () => {
                 module.exports.settingsWindow = null;
             });
-        } else module.exports.settingsWindow.focus()
+        } else {
+            if (module.exports.settingsWindow.isMinimized()) module.exports.settingsWindow.restore();
+            module.exports.settingsWindow.focus();
+        }
     }
 }

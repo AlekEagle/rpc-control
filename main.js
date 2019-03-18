@@ -35,10 +35,7 @@ if (!app.requestSingleInstanceLock()) {
     app.quit()
 }else {
     app.on('second-instance', (event, commandLine, workingDirectory) => {
-        if (vars.mainWindow) {
-            if (vars.mainWindow.isMinimized()) vars.mainWindow.restore();
-            vars.mainWindow.focus();
-        }else vars.createWindow();
+        vars.createWindow();
     });
 
     if (userSettings.get('autoStart') == undefined) userSettings.set('autoStart', true);
