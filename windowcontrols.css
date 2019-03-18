@@ -137,7 +137,7 @@ a {
 }
 
 body {
-  background-color: #222121;
+  background-color: #212121;
   color: #1199FF;
   margin-left: 0;
   margin-right: 0;
@@ -218,18 +218,16 @@ video {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: rgba(0, 0, 0, 0);
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 5px;
+  background-color: #212121;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(95, 95, 95, 0.637);
+  background: #333333;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: rgba(63, 63, 63, 0.637);
+  background: #292929;
 }
 
 .container {
@@ -258,12 +256,14 @@ video {
   top: 0;
   height: 25px;
   width: 25px;
-  background-color: transparent;
+  background-color: #292929;
   transition-duration: .25s;
+  border-radius: 5px;
 }
 
 .container:hover input~.checkmark {
   background-color: rgb(59, 59, 59);
+  box-shadow: 5px 5px 5px #14141485;
 }
 
 .container input:checked~.checkmark {
@@ -370,10 +370,17 @@ input {
   color: #d6d6d6;
   border: 0;
   outline: none;
+  border-radius: 5px;
+  transition: 0.3s
+}
+
+.darktextbox:hover {
+  background-color: #2c2c2c;
+  box-shadow: 5px 5px 5px #14141485;
 }
 
 .darktextbox:disabled {
-  background-color: #1f1f1f;
+  background-color: #141414;
   color: #d6d6d6;
   border: 0;
   outline: none;

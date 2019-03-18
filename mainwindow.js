@@ -3,9 +3,6 @@ const electron = require('electron');
 const vars = require('./util/variables');
 const remote = electron.remote;
 
-Sentry.init({
-	dsn: 'https://3777e4687aa245f2b8030691ed48dc2f@sentry.io/1416510'
-});
 var map = {}
 onkeydown = onkeyup = function (e) {
 	map[e.keyCode] = e.type == 'keydown'
@@ -19,6 +16,19 @@ const userSettings = new Config({
 const RPCConfig = new Config({
 	name: 'RPCConfig'
 });
+
+if (userSettings.get('sendErr') === true) {
+    Sentry.init({
+        dsn: 'https://3777e4687aa245f2b8030691ed48dc2f@sentry.io/1416510'
+    });
+    Sentry.configureScope(scope => {
+        scope.setUser({
+            id: userSettings.get('uniqueToken'),
+            username: userSettings.get('sentryAnon') ? '' : userSettings.get('sentryUsername'),
+            email: userSettings.get('sentryAnon') ? '' : userSettings.get('sentryEmail')
+        })
+    })
+}
 
 function windowOpened() {
 	function init() {
@@ -78,7 +88,7 @@ function windowOpened() {
 		document.getElementById('largeimagetext').value = RPCConfig.get('largeimagetext');
 		document.getElementById('smallimagetext').value = RPCConfig.get('smallimagetext');
 
-		document.getElementById('openSettings').addEventListener("click", vars.createSettingsWindow)
+		document.getElementById('openSettings').addEventListener("click", vars.createSettingsWindow);
 	};
 
 	document.onreadystatechange = () => {

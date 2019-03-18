@@ -35,17 +35,39 @@
       asset key (the name the image is given after saving) and paste it into one of the image key boxes in the main
       window.</p>
     <p style="margin-bottom: 0px;" id="clientidText">Client ID</p>
-    <input type="text" id="clientid"><br>
-    <label class="container">
+    <input class="darktextbox" type="text" id="clientid"><br>
+    <label class="container" style="margin-top:7px;">
       <input type="checkbox" id="startup">
-      <span class="checkmark"></span>__Open app at computer start up?
+      <span class="checkmark"></span><a style="color: #00000000;font-size: 22px;">__</a> Open app at computer start up?
     </label>
     <label class="container">
       <input type="checkbox" id="mainwindowstartup">
-      <span class="checkmark"></span>__Open control window at program start?
+      <span class="checkmark"></span><a style="color: #00000000;font-size: 22px;">__</a> Open control window at program start?
     </label>
+    <label class="container">
+      <input type="checkbox" id="senderr">
+      <span class="checkmark"></span><a style="color: #00000000;font-size: 22px;">__</a> Help me make the app better by sending crash and error reports to sentry.io?
+    </label>
+    <div id="privacyinfo">
+      <p>Sentry.io privacy info</p>
+      <label class="container">
+        <input type="checkbox" id="sentryanon">
+        <span class="checkmark"></span><a style="color: #00000000;font-size: 22px;">__</a> Stay anonymous by only using a unique token to identify you?
+      </label>
+      <p class="nomar" style="font-size: 20px;margin-top: 7px;margin-bottom: 7px;">Note: Unchecking the box above will allow sentry.io to see anything put into the boxes below. Your token will always be sent unless crash and error reports are disabled. Checking the box with your details inside the boxes below will still keep you anonymous.</p>
+      <p class="nomar" style="font-size: 20px;margin-top: 7px;margin-bottom: 7px;" id="token"></p>
+      <p class="nomar" style="font-size: 20px;text-decoration: underline;margin-top: 7px;margin-bottom: 7px;">EVERYTHING BELOW IS COMPLETELY OPTIONAL! DO NOT FILL IF YOU DO NOT WANT TO!!</p>
+      <div class="nomar nopad" style="width: 50%; float:left;">
+        <p style="margin-bottom: 0px;">Username</p>
+        <input class="darktextbox" type="text" id="username" placeholder="(optional)" disabled>
+      </div>
+      <div class="nomar nopad" style="width: 50%; float:left;">
+        <p style="margin-bottom: 0px;">Email</p>
+        <input class="darktextbox" type="text" id="email" placeholder="(optional)" disabled>
+      </div>
+    </div>
     <button class="button" id="save" style="margin-top: 5%;">Save Changes</button>
-    <p>NOTE: After making changes to the RPC type you must restart the ENTIRE APPLICATION.</p>
+    <p>NOTE: Clicking Save Changes will restart the app!</p>
   </body>
 
 </html>
