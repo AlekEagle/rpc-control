@@ -83,7 +83,6 @@ module.exports = () => {
         }).catch(err => {
             console.error(vars.CONSOLEPREFIX + chalk.red(err));
             setTimeout(() => {
-                rpc.destroy().catch(err => console.error(vars.CONSOLEPREFIX + chalk.red(err)));
                 login();
             }, 5e3)
         });

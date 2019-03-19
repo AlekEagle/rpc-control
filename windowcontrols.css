@@ -159,6 +159,7 @@ button.button:hover {
   background-color: #0094FF;
   color: lightgray;
   font-weight: 400;
+  box-shadow: 5px 5px 5px #141414c2;
 }
 
 .main {
