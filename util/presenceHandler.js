@@ -5,6 +5,7 @@ const vars = require('./variables');
 const Config = require('electron-store');
 const chalk = require("chalk");
 const path = require('path');
+const net = require('net');
 var id;
 var timeout;
 var setActivityLoop;
@@ -15,6 +16,20 @@ const RPCConfig = new Config({
     name: 'RPCConfig'
 });
 var rpc;
+
+var server = net.createServer(client => {
+    client.on('data', data => {
+        console.log(data.toString());
+        if (data.toString() === 'rpc') {
+            console.log('wrote data');
+            client.write(JSON.stringify(rpc));
+        }
+    });
+});
+
+server.listen(6904, () => {
+    console.log(vars.CONSOLEPREFIX + chalk.cyan('Listening for connections on port 6904'));
+})
 
 module.exports = () => {
     if (userSettings.get('rpctype') === 'public') id = vars.PUBLICRPCID;

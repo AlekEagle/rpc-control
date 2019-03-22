@@ -267,6 +267,10 @@ video {
   box-shadow: 5px 5px 5px #14141485;
 }
 
+.container:focus input~.checkmark {
+  box-shadow: 5px 5px 5px #14141485;
+}
+
 .container input:checked~.checkmark {
   background-color: #2196F3;
 }
@@ -385,4 +389,9 @@ input {
   color: #d6d6d6;
   border: 0;
   outline: none;
+}
+
+.darktextbox:focus {
+  background-color: #2c2c2c;
+  box-shadow: 5px 5px 5px #14141485;
 }
