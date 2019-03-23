@@ -2,6 +2,8 @@ const Sentry = require('@sentry/electron');
 const electron = require('electron');
 const vars = require('./util/variables');
 const remote = electron.remote;
+const net = require('net');
+var client = new net.Socket();
 
 var map = {}
 onkeydown = onkeyup = function (e) {
@@ -32,6 +34,25 @@ if (userSettings.get('sendErr') === true) {
 
 function windowOpened() {
 	function init() {
+		client.connect(6904, '127.0.0.1', () => {
+			console.log("Connected to presenceHandler");
+		});
+
+		client.on('error', err => {
+			Sentry.captureException(err);
+		});
+
+		client.on('data', data => {
+			data = JSON.parse(data.toString());
+			if (data !== null) {
+				document.getElementById('connstatus').style.color = '#00FF00';
+				document.getElementById('connstatus').innerText = `Connected to user: ${data.user.username}#${data.user.discriminator}`;
+			}else if (data === null) {
+				document.getElementById('connstatus').style.color = 'red'
+				document.getElementById('connstatus').innerText = `Not connected! Check Discord!`
+			}
+		});
+
 		document.getElementById("min-btn").addEventListener("click", function (e) {
 			var window = remote.getCurrentWindow();
 			window.minimize();
@@ -89,6 +110,9 @@ function windowOpened() {
 		document.getElementById('smallimagetext').value = RPCConfig.get('smallimagetext');
 
 		document.getElementById('openSettings').addEventListener("click", vars.createSettingsWindow);
+		setInterval(() => {
+			client.write('rpc');
+		}, 1000)
 	};
 
 	document.onreadystatechange = () => {
