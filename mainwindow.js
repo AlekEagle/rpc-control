@@ -45,7 +45,7 @@ function windowOpened() {
 		client.on('data', data => {
 			data = JSON.parse(data.toString());
 			if (data !== null) {
-				document.getElementById('connstatus').style.color = 'green';
+				document.getElementById('connstatus').style.color = '#00FF00';
 				document.getElementById('connstatus').innerText = `Connected to user: ${data.user.username}#${data.user.discriminator}`;
 			}else if (data === null) {
 				document.getElementById('connstatus').style.color = 'red'

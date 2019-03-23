@@ -19,10 +19,13 @@ var rpc;
 
 var server = net.createServer(client => {
     client.on('data', data => {
-        console.log(data.toString());
+        console.log(rpc);
         if (data.toString() === 'rpc') {
-            console.log('wrote data');
-            client.write(JSON.stringify(rpc));
+            if (rpc.user) {
+                client.write(JSON.stringify({user: rpc.user, clientId: rpc.clientId}));
+            }else {
+                client.write(JSON.stringify(null));
+            }
         }
     });
 });
