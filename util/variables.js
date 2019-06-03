@@ -25,6 +25,7 @@ module.exports = {
                 width: 900,
                 height: 600,
                 frame: false,
+                backgroundColor: '#212121',
                 icon: require('path').join(__dirname, '../icons/icon.png')
             });
             module.exports.mainWindow.loadFile(require('path').join(__dirname, '../index.html'));
@@ -44,6 +45,7 @@ module.exports = {
                 width: 800,
                 height: 600,
                 frame: false,
+                backgroundColor: '#212121',
                 icon: require('path').join(__dirname, '../icons/icon.png')
             });
             module.exports.settingsWindow.loadFile(require('path').join(__dirname, '../settings.html'));
